@@ -8,9 +8,12 @@ out vec2 TexCoords;
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
+uniform float time;
 
 void main()
 {
-    TexCoords = aTexCoords;    
-    gl_Position = projection * view * model * vec4(aPos, 1.0);
+    TexCoords = aTexCoords;
+	float modifiedX=cos(time*0.8+aPos.x)+(aPos.x*3);
+	float modifiedY=sin(time*0.8+aPos.x);
+    gl_Position = projection * view * model * vec4(modifiedX,modifiedY,aPos.z,1.0f);
 }
