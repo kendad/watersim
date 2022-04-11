@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "watersim", "watersim\watersim.vcxproj", "{BDB1407A-71AF-4CBD-AE81-870294657EDD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BDB1407A-71AF-4CBD-AE81-870294657EDD}.Debug|x64.ActiveCfg = Debug|x64
+		{BDB1407A-71AF-4CBD-AE81-870294657EDD}.Debug|x64.Build.0 = Debug|x64
+		{BDB1407A-71AF-4CBD-AE81-870294657EDD}.Debug|x86.ActiveCfg = Debug|Win32
+		{BDB1407A-71AF-4CBD-AE81-870294657EDD}.Debug|x86.Build.0 = Debug|Win32
+		{BDB1407A-71AF-4CBD-AE81-870294657EDD}.Release|x64.ActiveCfg = Release|x64
+		{BDB1407A-71AF-4CBD-AE81-870294657EDD}.Release|x64.Build.0 = Release|x64
+		{BDB1407A-71AF-4CBD-AE81-870294657EDD}.Release|x86.ActiveCfg = Release|Win32
+		{BDB1407A-71AF-4CBD-AE81-870294657EDD}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C40E38D2-FABD-498A-909E-9F88CF6DB1EA}
+	EndGlobalSection
+EndGlobal
