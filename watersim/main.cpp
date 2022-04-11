@@ -46,7 +46,7 @@ void main() {
 	//render Loop
 	glEnable(GL_DEPTH_TEST);//enable depth testing
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);//enable drawing in wireframe mode
-	//glEnable(GL_CULL_FACE);
+	glEnable(GL_CULL_FACE);
 	while (!glfwWindowShouldClose(window)) {
 		//get time
 		float currentTime = (float)glfwGetTime();
@@ -71,7 +71,7 @@ void main() {
 		//update and render 3D MODEL
 		ourShader.use();
 		glm::mat4 model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
 		glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		ourModel.Draw(ourShader);
 
