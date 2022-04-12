@@ -23,11 +23,13 @@ void main()
 	Normal=mat3(transpose(inverse(model))) * aNormal;
 	FragPos=vec3(model*vec4(aPos,1.0f));
 
-	//float modifiedX=0.8*cos(aPos.x-time*0.5f)+aPos.x;
-	//float modifiedY=0.2*sin(aPos.x-time*0.5f);//amplitude*sin(x-speed*time)
+	//float modifiedX=0.1*cos(1-time*0.9f)+1;
+	//float modifiedY=0.3*sin(modifiedX-time*0.9f);//amplitude*sin(x-speed*time)
 	
-	float modifiedX=rand(vec2(aPos.x,aPos.y))*0.1*cos(aPos.x-time*0.5f)+aPos.x;
-	float modifiedY=rand(vec2(aPos.y,aPos.z))*0.1*sin(aPos.x-time*0.5f);//amplitude*sin(x-speed*time)
+	float modifiedX=rand(vec2(aPos.x,aPos.y))*0.1*cos(aPos.x-time*0.9f)+aPos.x;
+	float modifiedY=rand(vec2(aPos.z,aPos.y))*0.1*sin(modifiedX-time*0.9f);//amplitude*sin(x-speed*time)
 	
-    gl_Position = projection * view * model * vec4(modifiedX,modifiedY,aPos.z,1.0f);
+	vec4 finalPos=vec4(modifiedX,modifiedY,aPos.z,1.0f);
+	
+    gl_Position = projection * view * model * finalPos;
 }
