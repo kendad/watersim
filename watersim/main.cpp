@@ -1,3 +1,7 @@
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+
 #include <iostream>
 #include "globals.h"
 
@@ -52,6 +56,14 @@ void main() {
 	ourShader.use();
 	glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
+	//Activate IMGUI
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	ImGui::StyleColorsDark();
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplOpenGL3_Init("#version 330");
+
 	//render Loop
 	glEnable(GL_DEPTH_TEST);//enable depth testing
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);//enable drawing in wireframe mode
@@ -68,6 +80,10 @@ void main() {
 		//all render stuff goes here
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+		//set up IMGUI for rendering
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
 
 		//Update view Matrix
 		glm::mat4 view = glm::lookAt(gCamera->position, gCamera->position + gCamera->front, gCamera->up);
@@ -90,10 +106,21 @@ void main() {
 		//render
 		ourModel.Draw(ourShader);
 
+		//render IMGUI stuff here
+		ImGui::Begin("Controls");
+		//ImGui::SliderFloat("ScalingBias", &SCALING_BIAS, 0, 10);
+		ImGui::End();
+
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
-
+	//End IMGUI here
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
 	//exit
 	glfwTerminate();
 	return;
