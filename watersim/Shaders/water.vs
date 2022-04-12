@@ -20,7 +20,7 @@ float rand(vec2 co){
 void main()
 {
     TexCoords = aTexCoords;
-	Normal=aNormal;
+	Normal=mat3(transpose(inverse(model))) * aNormal;
 	FragPos=vec3(model*vec4(aPos,1.0f));
 
 	//float modifiedX=0.8*cos(aPos.x-time*0.5f)+aPos.x;

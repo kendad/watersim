@@ -76,7 +76,8 @@ void main() {
 		//set Color Uniforms
 		glUniform3f(glGetUniformLocation(ourShader.ID, "lightColor"), 1.0f, 1.0f, 1.0f);
 		glUniform3f(glGetUniformLocation(ourShader.ID, "waterColor"), 0.023f, 0.258f, 0.45f);
-		glUniform3f(glGetUniformLocation(ourShader.ID, "lightPosition"),0.5f, 2.0f, 0.5f);
+		glUniform3f(glGetUniformLocation(ourShader.ID, "lightPosition"), 0.5f, 2.0f, 0.5f);
+		glUniform3fv(glGetUniformLocation(ourShader.ID, "cameraPosition"),1,glm::value_ptr(camera.position));
 		//render
 		ourModel.Draw(ourShader);
 
