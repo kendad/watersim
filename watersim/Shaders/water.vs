@@ -4,6 +4,8 @@ layout (location = 1) in vec3 aNormal;
 layout (location = 2) in vec2 aTexCoords;
 
 out vec2 TexCoords;
+out vec3 Normal;
+out vec3 FragPos;
 
 uniform mat4 model;
 uniform mat4 view;
@@ -18,6 +20,8 @@ float rand(vec2 co){
 void main()
 {
     TexCoords = aTexCoords;
+	Normal=aNormal;
+	FragPos=vec3(model*vec4(aPos,1.0f));
 
 	//float modifiedX=0.8*cos(aPos.x-time*0.5f)+aPos.x;
 	//float modifiedY=0.2*sin(aPos.x-time*0.5f);//amplitude*sin(x-speed*time)

@@ -71,8 +71,13 @@ void main() {
 		//update and render 3D MODEL
 		ourShader.use();
 		glm::mat4 model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 		glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		//set Color Uniforms
+		glUniform3f(glGetUniformLocation(ourShader.ID, "lightColor"), 1.0f, 1.0f, 1.0f);
+		glUniform3f(glGetUniformLocation(ourShader.ID, "waterColor"), 0.023f, 0.258f, 0.45f);
+		glUniform3f(glGetUniformLocation(ourShader.ID, "lightPosition"),0.5f, 2.0f, 0.5f);
+		//render
 		ourModel.Draw(ourShader);
 
 		glfwSwapBuffers(window);
