@@ -64,6 +64,9 @@ void main() {
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init("#version 330");
 
+	float lColors[4] = { 1.0f,1.0f,1.0f,1.0f };
+	float wColors[4] = { 0.023f,0.258f,0.450f,1.0f };
+
 	//render Loop
 	glEnable(GL_DEPTH_TEST);//enable depth testing
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);//enable drawing in wireframe mode
@@ -99,8 +102,8 @@ void main() {
 		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
 		glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		//set Color Uniforms
-		glUniform3f(glGetUniformLocation(ourShader.ID, "lightColor"), 1.0f, 1.0f, 1.0f);
-		glUniform3f(glGetUniformLocation(ourShader.ID, "waterColor"), 0.0235f, 0.2588f, 0.45f);
+		glUniform3f(glGetUniformLocation(ourShader.ID, "lightColor"), lColors[0], lColors[1], lColors[2]);
+		glUniform3f(glGetUniformLocation(ourShader.ID, "waterColor"), wColors[0], wColors[1], wColors[2]);
 		glUniform3f(glGetUniformLocation(ourShader.ID, "lightPosition"),9.0f,1.5f,9.0f);
 		glUniform3fv(glGetUniformLocation(ourShader.ID, "cameraPosition"),1,glm::value_ptr(camera.position));
 		//render
@@ -108,6 +111,8 @@ void main() {
 
 		//render IMGUI stuff here
 		ImGui::Begin("Controls");
+		ImGui::ColorEdit4("Light Color", lColors);
+		ImGui::ColorEdit4("Water Color", wColors);
 		//ImGui::SliderFloat("ScalingBias", &SCALING_BIAS, 0, 10);
 		ImGui::End();
 
