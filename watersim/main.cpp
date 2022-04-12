@@ -64,8 +64,13 @@ void main() {
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init("#version 330");
 
+	//Some Variables for controling through IMGUI
 	float lColors[4] = { 1.0f,1.0f,1.0f,1.0f };
 	float wColors[4] = { 0.023f,0.258f,0.450f,1.0f };
+	float lPosx=9.0f;  float lPosy=1.5f;  float lPosz=9.0f;
+	float wSpeed = 0.9f;
+	float randX = 0.1f;
+	float randY = 0.1f;
 
 	//render Loop
 	glEnable(GL_DEPTH_TEST);//enable depth testing
@@ -101,10 +106,13 @@ void main() {
 		glm::mat4 model = glm::mat4(1.0f);
 		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
 		glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		//set Color Uniforms
+		//set Uniforms
+		glUniform1f(glGetUniformLocation(ourShader.ID, "speed"), wSpeed);
+		glUniform1f(glGetUniformLocation(ourShader.ID, "randX"), randX);
+		glUniform1f(glGetUniformLocation(ourShader.ID, "randY"), randY);
 		glUniform3f(glGetUniformLocation(ourShader.ID, "lightColor"), lColors[0], lColors[1], lColors[2]);
 		glUniform3f(glGetUniformLocation(ourShader.ID, "waterColor"), wColors[0], wColors[1], wColors[2]);
-		glUniform3f(glGetUniformLocation(ourShader.ID, "lightPosition"),9.0f,1.5f,9.0f);
+		glUniform3f(glGetUniformLocation(ourShader.ID, "lightPosition"),lPosx, lPosy, lPosz);
 		glUniform3fv(glGetUniformLocation(ourShader.ID, "cameraPosition"),1,glm::value_ptr(camera.position));
 		//render
 		ourModel.Draw(ourShader);
@@ -113,7 +121,12 @@ void main() {
 		ImGui::Begin("Controls");
 		ImGui::ColorEdit4("Light Color", lColors);
 		ImGui::ColorEdit4("Water Color", wColors);
-		//ImGui::SliderFloat("ScalingBias", &SCALING_BIAS, 0, 10);
+		ImGui::SliderFloat("LightXPos", &lPosx, -30, 30);
+		ImGui::SliderFloat("LightYPos", &lPosy, -10, 10);
+		ImGui::SliderFloat("LightZPos", &lPosz, -30, 30);
+		ImGui::SliderFloat("Speed", &wSpeed, 0, 15);
+		ImGui::SliderFloat("AmplitudeX", &randX, 0, 0.4);
+		ImGui::SliderFloat("AmplitudeY", &randY, 0,0.4);
 		ImGui::End();
 
 		ImGui::Render();

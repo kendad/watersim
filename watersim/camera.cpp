@@ -20,7 +20,7 @@ Camera::Camera(GLFWwindow* _window, glm::vec3 _position, float _yaw, float _pitc
 }
 
 void Camera::processKeyboardInput(float& deltaTime) {
-	float cameraSpeed = (float)(2.5 * deltaTime);
+	float cameraSpeed = (float)(30 * deltaTime);
 
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
 		position += front * cameraSpeed;

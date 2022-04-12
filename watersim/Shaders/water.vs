@@ -12,6 +12,9 @@ uniform mat4 view;
 uniform mat4 projection;
 
 uniform float time;
+uniform float speed;
+uniform float randX;
+uniform float randY;
 
 float rand(vec2 co){
   return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
@@ -26,8 +29,8 @@ void main()
 	//float modifiedX=0.1*cos(1-time*0.9f)+1;
 	//float modifiedY=0.3*sin(modifiedX-time*0.9f);//amplitude*sin(x-speed*time)
 	
-	float modifiedX=rand(vec2(aPos.x,aPos.y))*0.1*cos(aPos.x-time*0.9f)+aPos.x;
-	float modifiedY=rand(vec2(aPos.z,aPos.y))*0.1*sin(modifiedX-time*0.9f);//amplitude*sin(x-speed*time)
+	float modifiedX=rand(vec2(aPos.x,aPos.y))*randX*cos(aPos.x-time*speed)+aPos.x;
+	float modifiedY=rand(vec2(aPos.z,aPos.y))*randY*sin(modifiedX-time*speed);//amplitude*sin(x-speed*time)
 	
 	vec4 finalPos=vec4(modifiedX,modifiedY,aPos.z,1.0f);
 	
