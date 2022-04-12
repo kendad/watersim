@@ -7,6 +7,8 @@
 GLFWwindow* window = nullptr;
 Camera* gCamera = nullptr;
 
+bool IS_MOUSE_CAPTURED = true;
+
 void INIT() {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -28,6 +30,8 @@ void INIT() {
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	//set mouse callback
 	glfwSetCursorPosCallback(window, mouse_callback);
+	//set keyboard input callback
+	glfwSetKeyCallback(window, keyboard_input_callback);
 
 	//load GLAD
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
@@ -55,5 +59,14 @@ void processInput(GLFWwindow* window,float& deltaTime) {
 
 void mouse_callback(GLFWwindow* window, double xPos, double yPos) {
 	gCamera->processMouseMovement(xPos, yPos);
+}
+
+void keyboard_input_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+	//Toggle mouse Cursor Mode ON/OFF
+	if (key == GLFW_KEY_M && action == GLFW_PRESS) {
+		IS_MOUSE_CAPTURED = !IS_MOUSE_CAPTURED;
+		if (IS_MOUSE_CAPTURED) glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		else glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	}
 }
 //#######################################################################################################################

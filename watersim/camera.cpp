@@ -1,4 +1,5 @@
 #include "camera.h"
+#include "globals.h"
 
 Camera::Camera(GLFWwindow* _window, glm::vec3 _position, float _yaw, float _pitch, float _lastX, float _lastY) {
 	window = _window;
@@ -39,30 +40,35 @@ void Camera::processKeyboardInput(float& deltaTime) {
 }
 
 void Camera::processMouseMovement(double xPos, double yPos, float sensitivity, float pitchLimit) {
-	if (firstTime) {
+	if (IS_MOUSE_CAPTURED) {
+		if (firstTime) {
+			lastX = xPos;
+			lastY = yPos;
+			firstTime = false;
+		}
+		float xOffset = xPos - lastX;
+		float yOffset = lastY - yPos;
 		lastX = xPos;
 		lastY = yPos;
-		firstTime = false;
+
+		xOffset *= sensitivity;
+		yOffset *= sensitivity;
+
+		yaw += xOffset;
+		pitch += yOffset;
+
+		if (pitch > 89.0f)
+			pitch = 89.0f;
+		if (pitch < -89.0f)
+			pitch = -89.0f;
+
+		glm::vec3 updatedFront;
+		updatedFront.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+		updatedFront.y = sin(glm::radians(pitch));
+		updatedFront.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+		front = glm::normalize(updatedFront);
 	}
-	float xOffset = xPos - lastX;
-	float yOffset = lastY - yPos;
-	lastX = xPos;
-	lastY = yPos;
-
-	xOffset *= sensitivity;
-	yOffset *= sensitivity;
-
-	yaw += xOffset;
-	pitch += yOffset;
-
-	if (pitch > 89.0f)
-		pitch = 89.0f;
-	if (pitch < -89.0f)
-		pitch = -89.0f;
-
-	glm::vec3 updatedFront;
-	updatedFront.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-	updatedFront.y = sin(glm::radians(pitch));
-	updatedFront.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-	front = glm::normalize(updatedFront);
+	else {
+		firstTime = true;
+	}
 }

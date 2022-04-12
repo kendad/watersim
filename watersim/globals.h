@@ -13,6 +13,8 @@ extern GLFWwindow* window;
 
 extern Camera* gCamera;
 
+extern bool IS_MOUSE_CAPTURED;
+
 //intialize GLFW for processing
 extern void INIT();
 
@@ -26,4 +28,6 @@ extern void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 extern void processInput(GLFWwindow* window,float& deltaTime);
 //mouse callback function
 extern void mouse_callback(GLFWwindow* window, double xPos, double yPos);
+//keyboard input callback function
+extern void keyboard_input_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 //#######################################################################################################################
